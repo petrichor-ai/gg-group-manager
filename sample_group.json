@@ -16,48 +16,16 @@
     ],
     "Functions": [
         {
-            "functionName": "ggcMasterServiceCtrl",
-            "Handler":      "ggcMasterServiceCtrl.function_handler",
-            "Runtime":      "python2.7",
-            "Package":      "lambda/sample_zero/ggcMasterServiceCtrl",
-            "Alias":        "GGC_MASTER_CTRL",
-            "Configuration": {
-				"EncodingType": "json",
-                "Executable": "ggcMasterServiceCtrl.function_handler",
-                "MemorySize": 50000,
-                "Pinned": true,
-                "Timeout": 5
-			}
-        },
-        {
-            "FunctionName": "ggcPostalServiceStream",
-            "Handler":      "ggcPostalServiceStream.function_handler",
-            "Runtime":      "python2.7",
-            "Package":      "lambda/sample_zero/ggcPostalServiceStream",
-            "Alias":        "GGC_POSTAL_STREAM",
-            "Configuration": {
-				"EncodingType": "json",
-                "Executable": "ggcPostalServiceStream.function_handler",
-                "MemorySize": 50000,
-                "Pinned": true,
-                "Timeout": 5
-			}
-        },
-        {
-            "FunctionName": "ggcPostalServiceForward",
-            "Handler":      "ggcPostalServiceForward.function_handler",
-            "Runtime":      "python2.7",
-            "Package":      "lambda/sample_zero/ggcPostalServiceForward",
-            "Alias":        "GGC_POSTAL_FORWARD",
-            "Configuration": {
-				"EncodingType": "json",
-                "Executable": "ggcPostalServiceForward.function_handler",
-                "MemorySize": 50000,
-                "Pinned": true,
-                "Timeout": 5
-			}
+            "FunctionName": "gateway-dev-register_post",
+            "FunctionAlias": "RegisterPost",
+            "EncodingType": "json",
+            "Executable": "handlers/register/main.post",
+            "MemorySize": 50000,
+            "Pinned": true,
+            "Timeout": 5,
+            "Environment": {
+            }
         }
-
     ],
     "Resources": [
         {

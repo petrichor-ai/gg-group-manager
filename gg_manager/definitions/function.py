@@ -20,8 +20,9 @@ class FunctionDefinition(object):
 
     def __init__(self, s):
 
-        self._gg  = s.client('greengrass')
-        self._iot = s.client('iot')
+        self._gg     = s.client('greengrass')
+        self._iot    = s.client('iot')
+        self._lambda = s.client('lambda')
 
 
     def formatDefinition(self, config, cfntmp):
@@ -30,7 +31,18 @@ class FunctionDefinition(object):
         functions = []
 
         for function in config['Functions']:
-            functionName       = device['functionName']
+            functionName  = function['FunctionName']
+            functionAlias = function['FunctionAlias']
+            functionArn   = self.fetchFunctionArn(functionName, functionAlias)
+            functionConfiguration = \
+            {
+                "MemorySize":   function['MemorySize'],
+                "Pinned":       function['Pinned'],
+                "Timeout":      function['Timeout'],
+                "EncodingType": function['EncodingType'],
+                "Executable":   function['Executable'],
+                "Environment":  function['Environment']
+            }
 
             functions.append({
                 "Id": functionName,
@@ -41,7 +53,9 @@ class FunctionDefinition(object):
         cfntmp.format(functions=json.dumps(functions))
 
 
-    def fetchFunctionArn(self, functionName):
-        response = client.get_function(
-            FunctionName=functionName
+    def fetchFunctionArn(self, functionName, functionAlias):
+        response = self._lambda.get_alias(
+            FunctionName=functionName,
+            Name=functionAlias
         )
+        return response['AliasArn']

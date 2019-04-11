@@ -5,7 +5,7 @@ from schema import Schema, And, Use, Optional, Regex
 
 groupSchema = Schema(And(Use(json.load), {
     'Group': {
-        'Name': Regex('[a-zA-Z][-a-zA-Z0-9]*')
+        'Name': basestring
     },
     'Cores': [
         {
@@ -24,17 +24,13 @@ groupSchema = Schema(And(Use(json.load), {
     'Functions': [
         {
             "FunctionName": basestring,
-            "Handler":      basestring,
-            "Runtime":      basestring,
-            "Package":      basestring,
-            "Alias":        basestring,
-            "Configuration": {
-				"EncodingType": basestring,
-                "Executable": basestring,
-                "MemorySize": int,
-                "Pinned": bool,
-                "Timeout": int
-			}
+            "FunctionAlias": basestring,
+			"EncodingType": basestring,
+            "Executable": basestring,
+            "MemorySize": int,
+            "Pinned": bool,
+            "Timeout": int,
+            "Environment": dict
         }
     ],
     'Resources': [
