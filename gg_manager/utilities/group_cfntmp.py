@@ -164,7 +164,7 @@ CFN_TEMPLATE_BODY = \
                 \"Name\": \"${groupName}\",
                 \"RoleArn\": {
                     \"Fn::GetAtt\" : [\"Role\", \"Arn\"]
-				},
+                },
                 \"InitialVersion\": {
                     \"CoreDefinitionVersionArn\": {
                         \"Ref\": \"CoreDefinitionVersion\"
