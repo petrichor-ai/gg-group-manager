@@ -163,7 +163,7 @@ CFN_TEMPLATE_BODY = \
             \"Properties\": {
                 \"Name\": \"${groupName}\",
                 \"RoleArn\": {
-					\"Fn::GetAtt\" : [\"Role\", \"Arn\"]
+                    \"Fn::GetAtt\" : [\"Role\", \"Arn\"]
 				},
                 \"InitialVersion\": {
                     \"CoreDefinitionVersionArn\": {
@@ -192,7 +192,7 @@ CFN_TEMPLATE_BODY = \
         \"groupName\": {
             \"Description\": \"Name of Greengrass Group\",
             \"Value\": {
-				\"Fn::GetAtt\": [\"Group\", \"Name\"]
+                \"Fn::GetAtt\": [\"Group\", \"Name\"]
             },
             \"Export\": {
                 \"Name\": \"groupName\"
@@ -201,7 +201,7 @@ CFN_TEMPLATE_BODY = \
         \"groupId\": {
             \"Description\": \"Id of Greengrass Group\",
             \"Value\": {
-				\"Fn::GetAtt\": [\"Group\", \"Id\"]
+                \"Fn::GetAtt\": [\"Group\", \"Id\"]
             },
             \"Export\": {
                 \"Name\": \"groupId\"
@@ -210,7 +210,7 @@ CFN_TEMPLATE_BODY = \
         \"groupArn\": {
             \"Description\": \"Arn of Greengrass Group\",
             \"Value\": {
-				\"Fn::GetAtt\": [\"Group\", \"Arn\"]
+                \"Fn::GetAtt\": [\"Group\", \"Arn\"]
             },
             \"Export\": {
                 \"Name\": \"groupArn\"
@@ -219,7 +219,7 @@ CFN_TEMPLATE_BODY = \
         \"groupLatestVersionArn\": {
             \"Description\": \"LatestVersionArn of Greengrass Group\",
             \"Value\": {
-				\"Fn::GetAtt\": [\"Group\", \"LatestVersionArn\"]
+                \"Fn::GetAtt\": [\"Group\", \"LatestVersionArn\"]
             },
             \"Export\": {
                 \"Name\": \"groupLatestVersionArn\"
