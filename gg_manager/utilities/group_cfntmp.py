@@ -2,7 +2,7 @@ import string
 import json
 
 
-class GroupCfnTmp(object):
+class CFNTemplate(object):
 
     def __init__(self, template):
         self.template = string.Template(template)
@@ -185,6 +185,44 @@ CFN_TEMPLATE_BODY = \
                         \"Ref\": \"ResourceDefinitionVersion\"
                     }
                 }
+            }
+        }
+    },
+    \"Outputs\": {
+        \"groupName\": {
+            \"Description\": \"Name of Greengrass Group\",
+            \"Value\": {
+				\"Fn::GetAtt\": [\"Group\", \"Name\"]
+            },
+            \"Export\": {
+                \"Name\": \"groupName\"
+            }
+        },
+        \"groupId\": {
+            \"Description\": \"Id of Greengrass Group\",
+            \"Value\": {
+				\"Fn::GetAtt\": [\"Group\", \"Id\"]
+            },
+            \"Export\": {
+                \"Name\": \"groupId\"
+            }
+        },
+        \"groupArn\": {
+            \"Description\": \"Arn of Greengrass Group\",
+            \"Value\": {
+				\"Fn::GetAtt\": [\"Group\", \"Arn\"]
+            },
+            \"Export\": {
+                \"Name\": \"groupArn\"
+            }
+        },
+        \"groupLatestVersionArn\": {
+            \"Description\": \"LatestVersionArn of Greengrass Group\",
+            \"Value\": {
+				\"Fn::GetAtt\": [\"Group\", \"LatestVersionArn\"]
+            },
+            \"Export\": {
+                \"Name\": \"groupLatestVersionArn\"
             }
         }
     }

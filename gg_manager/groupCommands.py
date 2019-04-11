@@ -15,9 +15,8 @@ from definitions.resource import ResourceDefinition
 from definitions.subscription import SubscriptionDefinition
 
 from utilities.group_config import GroupConfig
-from utilities.group_cfntmp import GroupCfnTmp, CFN_TEMPLATE_BODY
 from utilities.group_stacks import GroupStack
-
+from utilities.group_cfntmp import CFNTemplate, CFN_TEMPLATE_BODY
 
 
 
@@ -41,10 +40,12 @@ class GroupCommands(object):
 
         self._stack   = GroupStack(s)
 
+        self._gg      = s.client('greengrass')
+
 
     def create(self, configPath):
         config = GroupConfig(configPath)
-        cfntmp = GroupCfnTmp(CFN_TEMPLATE_BODY)
+        cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
         self._grupDef.formatDefinition(config, cfntmp)
         self._coreDef.formatDefinition(config, cfntmp)
@@ -54,23 +55,50 @@ class GroupCommands(object):
         self._rsrcDef.formatDefinition(config, cfntmp)
         self._subsDef.formatDefinition(config, cfntmp)
 
-        print(cfntmp)
         self._stack.create(config, cfntmp)
 
 
     def update(self, configPath):
         config = GroupConfig(configPath)
-        cfntmp = GroupCfnTmp(CFN_TEMPLATE_BODY)
+        cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
+
+        self._grupDef.formatDefinition(config, cfntmp)
+        self._coreDef.formatDefinition(config, cfntmp)
+        self._devcDef.formatDefinition(config, cfntmp)
+        self._funcDef.formatDefinition(config, cfntmp)
+        self._loggDef.formatDefinition(config, cfntmp)
+        self._rsrcDef.formatDefinition(config, cfntmp)
+        self._subsDef.formatDefinition(config, cfntmp)
+
+        output = self._stack.output(config)
+
+        groupId = output['Id']
+        self._grupDef.resetDefinition(groupId)
+
+        self._stack.update(config, cfntmp)
 
 
     def deploy(self, configPath):
         config = GroupConfig(configPath)
-        cfntmp = GroupCfnTmp(CFN_TEMPLATE_BODY)
+        cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
+
+        output = self._stack.output(config)
+
+        groupId        = output['Id']
+        groupVersionId = output['LatestVersion']
+        self._grupDef.deployDefinition(groupId, groupVersionId)
 
 
     def remove(self, configPath):
         config = GroupConfig(configPath)
-        cfntmp = GroupCfnTmp(CFN_TEMPLATE_BODY)
+        cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
+
+        output = self._stack.output(config)
+
+        groupId = output['Id']
+        self._grupDef.resetDefinition(groupId)
+
+        self._stack.delete(config, cfntmp)
 
 
 

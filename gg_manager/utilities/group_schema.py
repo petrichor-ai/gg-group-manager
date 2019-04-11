@@ -1,22 +1,24 @@
 import json
 
-from schema import Schema, And, Use, Optional
+from schema import Schema, And, Use, Optional, Regex
 
 
 groupSchema = Schema(And(Use(json.load), {
     'Group': {
-        'Name': basestring
+        'Name': Regex('[a-zA-Z][-a-zA-Z0-9]*')
     },
     'Cores': [
         {
             'thingName': basestring,
-            'SyncShadow': bool
+            'SyncShadow': bool,
+            'useExistingThing': bool
         }
     ],
     'Devices': [
         {
             'thingName': basestring,
-            'SyncShadow': bool
+            'SyncShadow': bool,
+            'useExistingThing': bool
         }
     ],
     'Functions': [

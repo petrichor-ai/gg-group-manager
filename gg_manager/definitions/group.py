@@ -28,3 +28,18 @@ class GroupDefinition(object):
         '''
         groupName = config['Group']['Name']
         cfntmp.format(groupName=groupName)
+
+
+    def deployDefinition(self, groupId, groupVersionId):
+        self._gg.create_deployment(
+            GroupId=groupId,
+            GroupVersionId=groupVersionId,
+            DeploymentType='NewDeployment'
+        )
+
+
+    def resetDefinition(self, groupId):
+        self._gg.reset_deployments(
+            GroupId=groupId,
+            Force=True
+        )

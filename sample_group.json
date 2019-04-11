@@ -1,32 +1,22 @@
 {
     "Group":   {
-        "Name": "sample_zero"
+        "Name": "TesterGroup"
     },
     "Cores": [{
-        "thingName": "sonoff_basic_1",
-        "SyncShadow": true
+        "thingName": "ThingTesterCore",
+        "SyncShadow": true,
+        "useExistingThing": false
     }],
     "Devices": [
         {
-            "thingName": "GG_BTN_BLUE",
-            "SyncShadow": true
-        },
-        {
-            "thingName": "GG_BTN_YELLOW",
-            "SyncShadow": true
-        },
-        {
-            "thingName": "GG_LED_BLUE",
-            "SyncShadow": true
-        },
-        {
-            "thingName": "GG_LED_YELLOW",
-            "SyncShadow": true
+            "thingName": "ThingTesterDevice",
+            "SyncShadow": true,
+            "useExistingThing": false
         }
     ],
     "Functions": [
         {
-            "FunctionName": "ggcMasterServiceCtrl",
+            "functionName": "ggcMasterServiceCtrl",
             "Handler":      "ggcMasterServiceCtrl.function_handler",
             "Runtime":      "python2.7",
             "Package":      "lambda/sample_zero/ggcMasterServiceCtrl",

@@ -1,4 +1,5 @@
 import boto3
+import json
 import logging
 
 from botocore.exceptions import ClientError
@@ -31,27 +32,21 @@ class CoreDefinition(object):
         thingArn        = self.fetchThingArn(thingName)
         thingCertArn    = self.fetchThingCertArn(thingName)
 
-        coreTemplate = \
-        '''
+        cores = \
         [
-            {{
-                \"Id\": \"{thingName}\",
-                \"ThingArn\": \"{thingArn}\",
-                \"CertificateArn\": \"{certArn}\",
-                \"SyncShadow\": \"{syncShadow}\"
-            }}
+            {
+                "Id": thingName,
+                "ThingArn": thingArn,
+                "CertificateArn": thingCertArn,
+                "SyncShadow": thingSyncShadow
+            }
         ]
-        '''.format(
-            thingName=thingName,
-            thingArn=thingArn,
-            certArn=thingCertArn,
-            syncShadow=thingSyncShadow
-        )
-        cfntmp.format(cores=coreTemplate)
+        cfntmp.format(cores=json.dumps(cores))
 
 
     def fetchThingArn(self, thingName):
-
+        ''' Fetch a Thing's Arn.
+        '''
         response = self._iot.describe_thing(
             thingName=thingName
         )
@@ -59,7 +54,8 @@ class CoreDefinition(object):
 
 
     def fetchThingCertArn(self, thingName):
-
+        ''' Fetch a Thing's Certificate Arn.
+        '''
         response = self._iot.list_thing_principals(
             thingName=thingName
         )

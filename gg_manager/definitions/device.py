@@ -1,4 +1,5 @@
 import boto3
+import json
 import logging
 
 from botocore.exceptions import ClientError
@@ -26,4 +27,37 @@ class DeviceDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Device Definition.
         '''
-        cfntmp.format(devices=[])
+        devices = []
+
+        for device in config['Devices']:
+            thingName       = device['thingName']
+            thingSyncShadow = device['SyncShadow']
+            thingArn        = self.fetchThingArn(thingName)
+            thingCertArn    = self.fetchThingCertArn(thingName)
+
+            devices.append({
+                "Id": thingName,
+                "ThingArn": thingArn,
+                "CertificateArn": thingCertArn,
+                "SyncShadow": thingSyncShadow
+            })
+
+        cfntmp.format(devices=json.dumps(devices))
+
+
+    def fetchThingArn(self, thingName):
+        ''' Fetch a Thing's Arn.
+        '''
+        response = self._iot.describe_thing(
+            thingName=thingName
+        )
+        return response['thingArn']
+
+
+    def fetchThingCertArn(self, thingName):
+        ''' Fetch a Thing's Certificate Arn.
+        '''
+        response = self._iot.list_thing_principals(
+            thingName=thingName
+        )
+        return response['principals'][0]

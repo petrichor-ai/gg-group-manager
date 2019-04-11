@@ -1,4 +1,5 @@
 import boto3
+import json
 import logging
 
 from botocore.exceptions import ClientError
@@ -26,4 +27,21 @@ class FunctionDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Function Definition.
         '''
-        cfntmp.format(functions=[])
+        functions = []
+
+        for function in config['Functions']:
+            functionName       = device['functionName']
+
+            functions.append({
+                "Id": functionName,
+                "FunctionArn": functionArn,
+                "FunctionConfiguration": functionConfiguration
+            })
+
+        cfntmp.format(functions=json.dumps(functions))
+
+
+    def fetchFunctionArn(self, functionName):
+        response = client.get_function(
+            FunctionName=functionName
+        )
