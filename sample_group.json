@@ -1,0 +1,86 @@
+{
+    "Group":   {
+        "Name": "sample_zero"
+    },
+    "Cores": [{
+        "thingName": "sonoff_basic_1",
+        "SyncShadow": true
+    }],
+    "Devices": [
+        {
+            "thingName": "GG_BTN_BLUE",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GG_BTN_YELLOW",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GG_LED_BLUE",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GG_LED_YELLOW",
+            "SyncShadow": true
+        }
+    ],
+    "Functions": [
+        {
+            "FunctionName": "ggcMasterServiceCtrl",
+            "Handler":      "ggcMasterServiceCtrl.function_handler",
+            "Runtime":      "python2.7",
+            "Package":      "lambda/sample_zero/ggcMasterServiceCtrl",
+            "Alias":        "GGC_MASTER_CTRL",
+            "Configuration": {
+				"EncodingType": "json",
+                "Executable": "ggcMasterServiceCtrl.function_handler",
+                "MemorySize": 50000,
+                "Pinned": true,
+                "Timeout": 5
+			}
+        },
+        {
+            "FunctionName": "ggcPostalServiceStream",
+            "Handler":      "ggcPostalServiceStream.function_handler",
+            "Runtime":      "python2.7",
+            "Package":      "lambda/sample_zero/ggcPostalServiceStream",
+            "Alias":        "GGC_POSTAL_STREAM",
+            "Configuration": {
+				"EncodingType": "json",
+                "Executable": "ggcPostalServiceStream.function_handler",
+                "MemorySize": 50000,
+                "Pinned": true,
+                "Timeout": 5
+			}
+        },
+        {
+            "FunctionName": "ggcPostalServiceForward",
+            "Handler":      "ggcPostalServiceForward.function_handler",
+            "Runtime":      "python2.7",
+            "Package":      "lambda/sample_zero/ggcPostalServiceForward",
+            "Alias":        "GGC_POSTAL_FORWARD",
+            "Configuration": {
+				"EncodingType": "json",
+                "Executable": "ggcPostalServiceForward.function_handler",
+                "MemorySize": 50000,
+                "Pinned": true,
+                "Timeout": 5
+			}
+        }
+
+    ],
+    "Resources": [
+        {
+            "Id": "defaultInterface",
+            "Name": "defaultInterface",
+            "ResourceDataContainer": {
+                "LocalDeviceResourceData": {
+                    "GroupOwnerSetting": {
+                        "AutoAddGroupOwner": true
+                    },
+                    "SourcePath": "/dev/ttyAMA0"
+                }
+            }
+        }
+    ]
+}

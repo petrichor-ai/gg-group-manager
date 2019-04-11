@@ -17,58 +17,50 @@ log.setLevel(logging.DEBUG)
 class CoreDefinition(object):
 
 
-    def __init__(self, s, state):
+    def __init__(self, s):
 
-        self._state = state
-
-        self._gg    = s.client('greengrass')
-        self._iot   = s.client('iot')
+        self._gg  = s.client('greengrass')
+        self._iot = s.client('iot')
 
 
-    def create(self, name, cores, tags={}):
-        ''' Create a Greengrass Group Core Definition.
+    def formatDefinition(self, config, cfntmp):
+        ''' Format a Cloudformation Greengrass Group Core Definition.
         '''
-        response = {}
-        try:
-            response = self._gg.create_core_definition(
-                InitialVersion={
-                    'Cores': cores
-                },
-                Name=name,
-                tags=tags
-            )
-        except ClientError as e:
-            log.error('Create Greengrass Core Definition failed', exc_info=True)
-            return response
-        else:
-            log.info('Create Greengrass Core Definition successful')
-            return response
-        finally:
-            pass
+        thingName       = config['Cores'][0]['thingName']
+        thingSyncShadow = config['Cores'][0]['SyncShadow']
+        thingArn        = self.fetchThingArn(thingName)
+        thingCertArn    = self.fetchThingCertArn(thingName)
 
-
-    def fetch(self, definitionId):
-        ''' Fetch a Greengrass Group Core Definition.
+        coreTemplate = \
         '''
-        response = self._gg.get_core_definition(
-            CoreDefinitionId=definitionId
+        [
+            {{
+                \"Id\": \"{thingName}\",
+                \"ThingArn\": \"{thingArn}\",
+                \"CertificateArn\": \"{certArn}\",
+                \"SyncShadow\": \"{syncShadow}\"
+            }}
+        ]
+        '''.format(
+            thingName=thingName,
+            thingArn=thingArn,
+            certArn=thingCertArn,
+            syncShadow=thingSyncShadow
         )
-        return response
+        cfntmp.format(cores=coreTemplate)
 
 
-    def remove(self, definitionId):
-        ''' Remove a Greengrass Group Core Definition.
-        '''
-        response = self._gg.delete_core_definition(
-            CoreDefinitionId=definitionId
+    def fetchThingArn(self, thingName):
+
+        response = self._iot.describe_thing(
+            thingName=thingName
         )
-        return response
+        return response['thingArn']
 
 
-    def update(self, definitionId):
-        ''' Update a Greengrass Group Core Definition.
-        '''
-        response = self._gg.update_core_definition(
-            CoreDefinitionId=definitionId
+    def fetchThingCertArn(self, thingName):
+
+        response = self._iot.list_thing_principals(
+            thingName=thingName
         )
-        return response
+        return response['principals'][0]

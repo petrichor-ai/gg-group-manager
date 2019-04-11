@@ -9,12 +9,12 @@ logging.basicConfig(
     level=logging.WARNING
 )
 
-log = logging.getLogger('ConnectorDefinition')
+log = logging.getLogger('GroupDefinition')
 log.setLevel(logging.DEBUG)
 
 
 
-class ConnectorDefinition(object):
+class GroupDefinition(object):
 
 
     def __init__(self, s):
@@ -24,6 +24,7 @@ class ConnectorDefinition(object):
 
 
     def formatDefinition(self, config, cfntmp):
-        ''' Format a Cloudformation Greengrass Group Connector Definition.
+        ''' Format a Cloudformation Greengrass Group Group Definition.
         '''
-        cfntmp.format(connectors=[])
+        groupName = config['Group']['Name']
+        cfntmp.format(groupName=groupName)

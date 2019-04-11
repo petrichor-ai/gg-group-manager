@@ -9,21 +9,24 @@ logging.basicConfig(
     level=logging.WARNING
 )
 
-log = logging.getLogger('ConnectorDefinition')
+log = logging.getLogger('GroupStack')
 log.setLevel(logging.DEBUG)
 
 
 
-class ConnectorDefinition(object):
+class GroupStack(object):
 
 
     def __init__(self, s):
 
-        self._gg  = s.client('greengrass')
-        self._iot = s.client('iot')
+        self._cfn = s.client('cloudformation')
 
 
-    def formatDefinition(self, config, cfntmp):
+    def create(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Connector Definition.
         '''
-        cfntmp.format(connectors=[])
+        response = self._cfn.create_stack(
+            StackName='TestStack',
+            TemplateBody=cfntmp.json_dump(),
+            Capabilities=['CAPABILITY_IAM']
+        )

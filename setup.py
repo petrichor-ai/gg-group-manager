@@ -14,7 +14,8 @@ setup(
     install_requires=[
         'fire==0.1.3',
         'boto3==1.9.98',
-        'botocore==1.12.98'
+        'botocore==1.12.98',
+        'schema==0.7.0'
     ],
     entry_points={
         'console_scripts': [
