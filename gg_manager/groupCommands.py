@@ -40,8 +40,6 @@ class GroupCommands(object):
 
         self._stack   = GroupStack(s)
 
-        self._gg      = s.client('greengrass')
-
 
     def create(self, configPath):
         ''' Create a Greengrass Group.
