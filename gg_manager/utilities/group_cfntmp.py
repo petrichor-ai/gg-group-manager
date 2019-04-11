@@ -127,37 +127,37 @@ CFN_TEMPLATE_BODY = \
                 \"Subscriptions\": ${subscriptions}
             }
         },
-		\"Role\": {
-			\"Type\": \"AWS::IAM::Role\",
-			\"Properties\": {
-				\"AssumeRolePolicyDocument\": {
-					\"Version\": \"2012-10-17\",
-					\"Statement\": [{
-						\"Effect\": \"Allow\",
-						\"Principal\": {
-							\"Service\": [
-								\"greengrass.amazonaws.com\"
-							]
-						},
-						\"Action\": [
-							\"sts:AssumeRole\"
-						]
-					}]
-				},
-				\"Path\": \"/\",
-				\"Policies\": [{
-					\"PolicyName\": \"${groupName}-Policy\",
-					\"PolicyDocument\": {
-						\"Version\" : \"2012-10-17\",
-						\"Statement\": [{
-							\"Effect\": \"Allow\",
-							\"Action\": \"*\",
-							\"Resource\": \"*\"
-						}]
-					}
-				}]
-			}
-		},
+        \"Role\": {
+            \"Type\": \"AWS::IAM::Role\",
+            \"Properties\": {
+                \"AssumeRolePolicyDocument\": {
+                    \"Version\": \"2012-10-17\",
+                    \"Statement\": [{
+                        \"Effect\": \"Allow\",
+                        \"Principal\": {
+                            \"Service\": [
+                                \"greengrass.amazonaws.com\"
+                            ]
+                        },
+                        \"Action\": [
+                            \"sts:AssumeRole\"
+                        ]
+                    }]
+                },
+                \"Path\": \"/\",
+                \"Policies\": [{
+                    \"PolicyName\": \"${groupName}-Policy\",
+                    \"PolicyDocument\": {
+                        \"Version\" : \"2012-10-17\",
+                        \"Statement\": [{
+                            \"Effect\": \"Allow\",
+                            \"Action\": \"*\",
+                            \"Resource\": \"*\"
+                        }]
+                    }
+                }]
+            }
+        },
         \"Group\": {
             \"Type\": \"AWS::Greengrass::Group\",
             \"Properties\": {
