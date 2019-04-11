@@ -44,6 +44,8 @@ class GroupCommands(object):
 
 
     def create(self, configPath):
+        ''' Create a Greengrass Group.
+        '''
         config = GroupConfig(configPath)
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
@@ -59,6 +61,8 @@ class GroupCommands(object):
 
 
     def update(self, configPath):
+        ''' Update a Greengrass Group.
+        '''
         config = GroupConfig(configPath)
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
@@ -79,6 +83,8 @@ class GroupCommands(object):
 
 
     def deploy(self, configPath):
+        ''' Deploy a Greengrass Group.
+        '''
         config = GroupConfig(configPath)
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
@@ -90,6 +96,8 @@ class GroupCommands(object):
 
 
     def remove(self, configPath):
+        ''' Remove a Greengrass Group.
+        '''
         config = GroupConfig(configPath)
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
