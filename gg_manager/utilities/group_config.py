@@ -28,10 +28,8 @@ def handle_config_error(func):
 
 class GroupConfig(dict):
 
-    def __init__(self, path):
-
-		config = self.loader(path)
-		self.update(config)
+    def __init__(self):
+        pass
 
 
     def __getitem__(self, key):
@@ -54,6 +52,15 @@ class GroupConfig(dict):
 
 
     @handle_config_error
-    def loader(self, path):
-		with open(path, 'r') as f:
-			return groupSchema.validate(f)
+    def load_from_json(self, payload):
+
+        conf = groupSchema(use=json.loads).validate(payload)
+        self.update(conf)
+
+
+    @handle_config_error
+    def load_from_file(self, payload):
+
+        with open(payload, 'r') as f:
+            conf = groupSchema(use=json.load).validate(f)
+            self.update(conf)

@@ -39,72 +39,89 @@ class GroupCommands(object):
         self._subsDef = SubscriptionDefinition(s)
 
         self._stack   = GroupStack(s)
+        self._config  = GroupConfig()
 
 
-    def create(self, configPath):
+    def create(self, configJson='', configFile=''):
         ''' Create a Greengrass Group.
         '''
-        config = GroupConfig(configPath)
+        if configJson:
+            self._config.load_from_json(configJson)
+        else:
+            self._config.load_from_file(configFile)
+
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
-        self._grupDef.formatDefinition(config, cfntmp)
-        self._coreDef.formatDefinition(config, cfntmp)
-        self._devcDef.formatDefinition(config, cfntmp)
-        self._funcDef.formatDefinition(config, cfntmp)
-        self._loggDef.formatDefinition(config, cfntmp)
-        self._rsrcDef.formatDefinition(config, cfntmp)
-        self._subsDef.formatDefinition(config, cfntmp)
+        self._grupDef.formatDefinition(self._config, cfntmp)
+        self._coreDef.formatDefinition(self._config, cfntmp)
+        self._devcDef.formatDefinition(self._config, cfntmp)
+        self._funcDef.formatDefinition(self._config, cfntmp)
+        self._loggDef.formatDefinition(self._config, cfntmp)
+        self._rsrcDef.formatDefinition(self._config, cfntmp)
+        self._subsDef.formatDefinition(self._config, cfntmp)
 
-        self._stack.create(config, cfntmp)
+        self._stack.create(self._config, cfntmp)
 
 
-    def update(self, configPath):
+    def update(self, configJson='', configFile=''):
         ''' Update a Greengrass Group.
         '''
-        config = GroupConfig(configPath)
+        if configJson:
+            self._config.load_from_json(configJson)
+        else:
+            self._config.load_from_file(configFile)
+
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
-        self._grupDef.formatDefinition(config, cfntmp)
-        self._coreDef.formatDefinition(config, cfntmp)
-        self._devcDef.formatDefinition(config, cfntmp)
-        self._funcDef.formatDefinition(config, cfntmp)
-        self._loggDef.formatDefinition(config, cfntmp)
-        self._rsrcDef.formatDefinition(config, cfntmp)
-        self._subsDef.formatDefinition(config, cfntmp)
+        self._grupDef.formatDefinition(self._config, cfntmp)
+        self._coreDef.formatDefinition(self._config, cfntmp)
+        self._devcDef.formatDefinition(self._config, cfntmp)
+        self._funcDef.formatDefinition(self._config, cfntmp)
+        self._loggDef.formatDefinition(self._config, cfntmp)
+        self._rsrcDef.formatDefinition(self._config, cfntmp)
+        self._subsDef.formatDefinition(self._config, cfntmp)
 
-        output = self._stack.output(config)
+        output = self._stack.output(self._config)
 
         groupId = output['Id']
         self._grupDef.resetDefinition(groupId)
 
-        self._stack.update(config, cfntmp)
+        self._stack.update(self._config, cfntmp)
 
 
-    def deploy(self, configPath):
+    def deploy(self, configJson='', configFile=''):
         ''' Deploy a Greengrass Group.
         '''
-        config = GroupConfig(configPath)
+        if configJson:
+            self._config.load_from_json(configJson)
+        else:
+            self._config.load_from_file(configFile)
+
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
-        output = self._stack.output(config)
+        output = self._stack.output(self._config)
 
         groupId        = output['Id']
         groupVersionId = output['LatestVersion']
         self._grupDef.deployDefinition(groupId, groupVersionId)
 
 
-    def remove(self, configPath):
+    def remove(self, configJson='', configFile=''):
         ''' Remove a Greengrass Group.
         '''
-        config = GroupConfig(configPath)
+        if configJson:
+            self._config.load_from_json(configJson)
+        else:
+            self._config.load_from_file(configFile)
+
         cfntmp = CFNTemplate(CFN_TEMPLATE_BODY)
 
-        output = self._stack.output(config)
+        output = self._stack.output(self._config)
 
         groupId = output['Id']
         self._grupDef.resetDefinition(groupId)
 
-        self._stack.delete(config, cfntmp)
+        self._stack.delete(self._config, cfntmp)
 
 
 
