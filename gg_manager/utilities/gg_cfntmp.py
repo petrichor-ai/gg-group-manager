@@ -249,9 +249,9 @@ CFN_THING_TEMPLATE_BODY = \
                 }
             }
         },
-		\"devicePolicy\": {
-			\"Type\": \"AWS::IoT::Policy\",
-			\"Properties\": {
+        \"devicePolicy\": {
+            \"Type\": \"AWS::IoT::Policy\",
+            \"Properties\": {
                 \"PolicyDocument\": \"{
                     \\\"Version\\\":\\\"2012-10-17\\\",
                     \\\"Statement\\\": [
@@ -304,26 +304,26 @@ CFN_THING_TEMPLATE_BODY = \
                         }
                     ]
                 }\"
-			}
-		},
-		\"devicePolicyPrincipal\": {
-			\"Type\": \"AWS::IoT::PolicyPrincipalAttachment\",
-			\"Properties\": {
-				\"PolicyName\": {
-					\"Ref\": \"devicePolicyPrincipal\"
-				},
-				\"Principal\": \"${certificateArn}\"
-			}
-		},
-		\"deviceThingPrincipal\": {
-			\"Type\": \"AWS::IoT::ThingPrincipalAttachment\",
-			\"Properties\": {
-				\"ThingName\": {
-					\"Ref\": \"deviceThing\"
-				},
-				\"Principal\": \"${certificateArn}\"
-			}
-		}
-	}
+            }
+        },
+        \"devicePolicyPrincipal\": {
+            \"Type\": \"AWS::IoT::PolicyPrincipalAttachment\",
+            \"Properties\": {
+                \"PolicyName\": {
+                    \"Ref\": \"devicePolicyPrincipal\"
+                },
+                \"Principal\": \"${certificateArn}\"
+            }
+        },
+        \"deviceThingPrincipal\": {
+            \"Type\": \"AWS::IoT::ThingPrincipalAttachment\",
+            \"Properties\": {
+                \"ThingName\": {
+                    \"Ref\": \"deviceThing\"
+                },
+                \"Principal\": \"${certificateArn}\"
+            }
+        }
+    }
 }
 '''
