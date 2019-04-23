@@ -61,7 +61,7 @@ class GroupCommands(object):
         self._rsrcDef.formatDefinition(self._config, self._cfntmp)
         self._subsDef.formatDefinition(self._config, self._cfntmp)
 
-        self._stack.create(self._config, cfntmp)
+        self._stack.create(self._config, self._cfntmp)
 
 
     def update(self, configJson='', configFile=''):
