@@ -4,6 +4,8 @@ import logging
 
 from botocore.exceptions import ClientError
 
+from definitions.thing import ThingDefinition
+
 from utilities.gg_stacks import Stack
 from utilities.gg_config import Config
 from utilities.gg_schema import Schema, thingSchema
@@ -29,9 +31,11 @@ class ThingCommands(object):
         if not s.region_name:
             raise Exception("AWS Credentials and Region must be setup")
 
-        self._stack  = Stack(s)
-        self._config = Config()
-        self._cfntmp = CFNTemplate(CFN_THING_TEMPLATE_BODY)
+        self._thngDef = ThingDefinition(s)
+
+        self._stack   = Stack(s)
+        self._config  = Config()
+        self._cfntmp  = CFNTemplate(CFN_THING_TEMPLATE_BODY)
 
 
     def create(self, configJson='', configFile=''):

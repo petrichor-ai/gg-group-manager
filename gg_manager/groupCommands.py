@@ -4,6 +4,15 @@ import logging
 
 from botocore.exceptions import ClientError
 
+from definitions.connector    import ConnectorDefinition
+from definitions.core         import CoreDefinition
+from definitions.device       import DeviceDefinition
+from definitions.function     import FunctionDefinition
+from definitions.group        import GroupDefinition
+from definitions.logger       import LoggerDefinition
+from definitions.resource     import ResourceDefinition
+from definitions.subscription import SubscriptionDefinition
+
 from utilities.gg_stacks import Stack
 from utilities.gg_config import Config
 from utilities.gg_schema import Schema, groupSchema

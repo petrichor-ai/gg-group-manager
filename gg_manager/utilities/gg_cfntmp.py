@@ -261,7 +261,7 @@ CFN_THING_TEMPLATE_BODY = \
                                 \\\"iot:Connect\\\"
                             ],
                             \\\"Resource\\\": [
-                                \\\"arn:aws:iot:{region}:{accountId}:client/${iot:ClientId}\\\"
+                                \\\"arn:aws:iot:${region}:${accountId}:client/${thingName}\\\"
                             ],
                             \\\"Condition\\": {
                                 \\\"Bool\\\": {
@@ -279,7 +279,7 @@ CFN_THING_TEMPLATE_BODY = \
                                 \\\"iot:DeleteThingShadow\\\"
                             ],
                             \\\"Resource\\\": [
-                                \\\"*\\\"
+                                \\\"arn:aws:iot:${region}:${accountId}:thing/${thingName}\\\"
                             ]
                         },
                         {
@@ -290,7 +290,8 @@ CFN_THING_TEMPLATE_BODY = \
                                 \\\"iot:Receive\\\"
                             ],
                             \\\"Resource\\\": [
-                                \\\"*\\\"
+                                \\\"arn:aws:iot:${region}:${accountId}:topic/$aws/things/${thingName}/shadow/#\\\",
+                                \\\"arn:aws:iot:${region}:${accountId}:topicfilter/$aws/things/${thingName}/shadow/#\\\"
                             ]
                         },
                         {
