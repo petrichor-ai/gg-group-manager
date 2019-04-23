@@ -43,3 +43,11 @@ class GroupDefinition(object):
             GroupId=groupId,
             Force=True
         )
+
+
+    def fetchGroup(self, groupId):
+
+        response = self._gg.get_group(
+            GroupId=groupId
+        )
+        return response

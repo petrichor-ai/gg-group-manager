@@ -49,7 +49,7 @@ class GroupCommands(object):
 
         self._stack   = Stack(s)
         self._config  = Config()
-        self._cfntmp  = CFNTemplate(CFN_GROUP_TEMPLATE_BODY)
+        self._cfntmp  = CFNTemplate()
 
 
     def create(self, configJson='', configFile=''):
@@ -59,8 +59,10 @@ class GroupCommands(object):
             schema = Schema(groupSchema, use=json.loads)
             self._config.load_from_json(configJson, schema)
         else:
-            schema = Schema(groupSchema, use=json.joad)
+            schema = Schema(groupSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
+
+        self._cfntmp.load_body(CFN_GROUP_TEMPLATE_BODY)
 
         self._grupDef.formatDefinition(self._config, self._cfntmp)
         self._coreDef.formatDefinition(self._config, self._cfntmp)
@@ -82,6 +84,8 @@ class GroupCommands(object):
         else:
             schema = Schema(groupSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
+
+        self._cfntmp.load_body(CFN_GROUP_TEMPLATE_BODY)
 
         self._grupDef.formatDefinition(self._config, self._cfntmp)
         self._coreDef.formatDefinition(self._config, self._cfntmp)
@@ -109,8 +113,9 @@ class GroupCommands(object):
             self._config.load_from_file(configFile, schema)
 
         output         = self._stack.output(self._config)
-        groupId        = output['Id']
-        groupVersionId = output['LatestVersion']
+        group          = self._grupDef.fetchGruup(output['groupId'])
+        groupId        = group['Id']
+        groupVersionId = group['LatestVersion']
         self._grupDef.deployDefinition(groupId, groupVersionId)
 
 
@@ -125,7 +130,8 @@ class GroupCommands(object):
             self._config.load_from_file(configFile, schema)
 
         output  = self._stack.output(self._config)
-        groupId = output['Id']
+        group   = self._grupDef.fetchGroup(output['GroupId'])
+        groupId = group['Id']
         self._grupDef.resetDefinition(groupId)
 
         self._stack.delete(self._config, self._cfntmp)

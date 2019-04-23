@@ -17,8 +17,7 @@ def groupSchema(use=json.load):
         'Cores': [
             {
                 'thingName': basestring,
-                'SyncShadow': bool,
-                'useExistingThing': bool
+                'SyncShadow': bool
             }
         ],
         'Devices': [

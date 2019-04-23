@@ -26,10 +26,15 @@ class Stack(object):
     def create(self, config, cfntmp):
         ''' Create a Cloudformation Greengrass Group Stack.
         '''
-        groupName = config['Group']['Name']
+        if config.get('Group', None):
+            groupName = config['Group']['Name']
+            stackName = '{}-GG-Stack'.format(groupName)
+        else:
+            thingName = config['thingName']
+            stackName = '{}-Thing-Stack'.format(thingName)
 
         response = self._cfn.create_stack(
-            StackName='{}-GG-Stack'.format(groupName),
+            StackName=stackName,
             TemplateBody=cfntmp.json_dump(),
             Capabilities=['CAPABILITY_IAM']
         )
@@ -38,10 +43,15 @@ class Stack(object):
     def update(self, config, cfntmp):
         ''' Update a Cloudformation Greengrass Group Stack.
         '''
-        groupName = config['Group']['Name']
+        if config.get('Group', None):
+            groupName = config['Group']['Name']
+            stackName = '{}-GG-Stack'.format(groupName)
+        else:
+            thingName = config['thingName']
+            stackName = '{}-Thing-Stack'.format(thingName)
 
         response = self._cfn.update_stack(
-            StackName='{}-GG-Stack'.format(groupName),
+            StackName=stackName,
             TemplateBody=cfntmp.json_dump(),
             Capabilities=['CAPABILITY_IAM']
         )
@@ -50,20 +60,31 @@ class Stack(object):
     def delete(self, config, cfntmp):
         ''' Delete a Cloudformation Greengrass Group Stack.
         '''
-        groupName = config['Group']['Name']
+
+        if config.get('Group', None):
+            groupName = config['Group']['Name']
+            stackName = '{}-GG-Stack'.format(groupName)
+        else:
+            thingName = config['thingName']
+            stackName = '{}-Thing-Stack'.format(thingName)
 
         response = self._cfn.delete_stack(
-            StackName='{}-GG-Stack'.format(groupName)
+            StackName=stackName
         )
 
 
     def output(self, config):
         ''' Retreive a Cloudformation Greengrass Group Stack Output.
         '''
-        groupName = config['Group']['Name']
+        if config.get('Group', None):
+            groupName = config['Group']['Name']
+            stackName = '{}-GG-Stack'.format(groupName)
+        else:
+            thingName = config['thingName']
+            stackName = '{}-Thing-Stack'.format(thingName)
 
         response = self._cfn.describe_stacks(
-            StackName='{}-GG-Stack'.format(groupName)
+            StackName=stackName
         )
         outputs = response['Stacks'][0]['Outputs']
         outputs = {out['OutputKey']: out['OutputValue'] for out in outputs}

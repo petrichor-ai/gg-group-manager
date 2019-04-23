@@ -9,22 +9,22 @@ $ pip install git+https://github.com/petrichor-ai/gg-group-manager.git
 
 ### Commands:
 
-Create a Greengrass Group,
+Create an AWS Greengrass Group,
 ```bash
-$ gg-manager create sample_group.json
+$ gg-manager group create sample_group.json
 ```
 
-Update a Greengrass Group,
+Update an AWS Greengrass Group,
 ```bash
-$ gg-manager update sample_group.json
+$ gg-manager group update sample_group.json
 ```
 
-Deploy a Greengrass Group,
+Deploy an AWS Greengrass Group,
 ```bash
-$ gg-manager deploy sample_group.json
+$ gg-manager group deploy sample_group.json
 ```
 
-Remove a Greengrass Group,
+Remove an AWS Greengrass Group,
 ```bash
-$ gg-manager remove sample_group.json
+$ gg-manager group remove sample_group.json
 ```

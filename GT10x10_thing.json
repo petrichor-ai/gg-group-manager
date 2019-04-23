@@ -1,0 +1,154 @@
+{
+    "Devices": [
+        {
+            "thingName": "GT10x10Core",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-01",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-02",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-03",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-04",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-05",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-06",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-07",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-08",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-09",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-10",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-11",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-12",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-13",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-14",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-15",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-16",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-17",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-18",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-19",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-20",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-21",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-22",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-23",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT10x10Device-Switch-24",
+            "Attributes": {
+
+            }
+        }
+    ]
+}

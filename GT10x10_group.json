@@ -1,0 +1,107 @@
+{
+    "Group":   {
+        "Name": "GT10x10Group"
+    },
+    "Cores": [{
+        "thingName": "GT10x10Core",
+        "SyncShadow": true
+    }],
+    "Devices": [
+        {
+            "thingName": "GT10x10Device-Switch-01",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-02",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-03",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-04",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-05",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-06",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-07",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-08",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-09",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-10",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-11",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-12",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-13",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-14",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-15",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-16",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-17",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-18",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-19",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-20",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-21",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-22",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-23",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT10x10Device-Switch-24",
+            "SyncShadow": true
+        }
+    ]
+}

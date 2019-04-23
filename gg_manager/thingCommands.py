@@ -35,7 +35,7 @@ class ThingCommands(object):
 
         self._stack   = Stack(s)
         self._config  = Config()
-        self._cfntmp  = CFNTemplate(CFN_THING_TEMPLATE_BODY)
+        self._cfntmp  = CFNTemplate()
 
 
     def create(self, configJson='', configFile=''):
@@ -47,7 +47,17 @@ class ThingCommands(object):
         else:
             schema = Schema(thingSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
-        print('Thing Create')
+
+        for thing in self._config.get('Devices', []):
+
+            self._cfntmp.load_body(CFN_THING_TEMPLATE_BODY)
+
+            thing['certificateArn'] = self._thngDef.generate_key_certs(
+                thing['thingName']
+            )
+            self._thngDef.formatDefinition(thing, self._cfntmp)
+
+            self._stack.create(thing, self._cfntmp)
 
 
     def update(self, configJson='', configFile=''):
@@ -59,7 +69,12 @@ class ThingCommands(object):
         else:
             schema = Schema(thingSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
-        print('Thing Update')
+
+        for thing in self._config.get('Devices', []):
+
+            self._cfntmp.load_body(CFN_THING_TEMPLATE_BODY)
+
+            self._stack.update(thing, self._cfntmp)
 
 
     def remove(self, configJson='', configFile=''):
@@ -71,4 +86,8 @@ class ThingCommands(object):
         else:
             schema = Schema(thingSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
-        print('Thing Remove')
+
+        for thing in self._config.get('Devices', []):
+
+            self._stack.delete(thing, self._cfntmp)
+

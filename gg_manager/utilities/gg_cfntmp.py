@@ -4,8 +4,7 @@ import json
 
 class CFNTemplate(object):
 
-    def __init__(self, template):
-        self.template = string.Template(template)
+    def __init__(self):
         self.partial_substituted_str = None
 
 
@@ -19,9 +18,13 @@ class CFNTemplate(object):
         return self.__repr__()
 
 
+    def load_body(self, template):
+        self.template = string.Template(template)
+
+
     def json_dump(self):
         output = self.template.template
-        output = output.replace(' ', '').replace('\n', '').replace('\t', '').replace('\\', '')
+        output = output.replace(' ', '').replace('\n', '').replace('\t', '')
         output = json.loads(output)
         return json.dumps(output)
 
@@ -31,7 +34,7 @@ CFN_GROUP_TEMPLATE_BODY = \
 '''
 {
     \"AWSTemplateFormatVersion\": \"2010-09-09\",
-    \"Description\": \"AWS IoT Greengrass Group Stack\",
+    \"Description\": \"AWS_IoT_Greengrass_Group_Stack\",
     \"Resources\": {
         \"CoreDefinition\": {
             \"Type\": \"AWS::Greengrass::CoreDefinition\",
@@ -235,6 +238,7 @@ CFN_THING_TEMPLATE_BODY = \
 '''
 {
     \"AWSTemplateFormatVersion\": \"2010-09-09\",
+    \"Description\": \"AWS_IoT_Device_Thing_Stack\",
     \"Resources\": {
         \"deviceThing\": {
             \"Type\": \"AWS::IoT::Thing\",
@@ -242,9 +246,6 @@ CFN_THING_TEMPLATE_BODY = \
                 \"ThingName\": \"${thingName}\",
                 \"AttributePayload\": {
                     \"Attributes\": {
-                        \"myAttributeA\": {
-                            \"Ref\": \"MyAttributeValueA\"
-                        }
                     }
                 }
             }
@@ -311,7 +312,7 @@ CFN_THING_TEMPLATE_BODY = \
             \"Type\": \"AWS::IoT::PolicyPrincipalAttachment\",
             \"Properties\": {
                 \"PolicyName\": {
-                    \"Ref\": \"devicePolicyPrincipal\"
+                    \"Ref\": \"devicePolicy\"
                 },
                 \"Principal\": \"${certificateArn}\"
             }
