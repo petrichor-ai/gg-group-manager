@@ -1,4 +1,5 @@
 import boto3
+import json
 import logging
 
 from botocore.exceptions import ClientError
@@ -26,4 +27,6 @@ class LoggerDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Logger Definition.
         '''
-        cfntmp.format(loggers=[])
+        loggers = []
+
+        cfntmp.format(loggers=json.dumps(loggers))

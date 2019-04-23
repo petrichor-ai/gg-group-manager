@@ -30,7 +30,7 @@ class FunctionDefinition(object):
         '''
         functions = []
 
-        for function in config['Functions']:
+        for function in config.get('Functions', []):
             functionName  = function['FunctionName']
             functionAlias = function['FunctionAlias']
             functionArn   = self.fetchFunctionArn(functionName, functionAlias)

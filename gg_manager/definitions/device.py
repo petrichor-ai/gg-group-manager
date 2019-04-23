@@ -30,17 +30,20 @@ class DeviceDefinition(object):
         devices = []
 
         for device in config['Devices']:
-            thingName       = device['thingName']
-            thingSyncShadow = device['SyncShadow']
-            thingArn        = self.fetchThingArn(thingName)
-            thingCertArn    = self.fetchThingCertArn(thingName)
+            thingName        = device['thingName']
+            thingSyncShadow  = device['SyncShadow']
+            thingUseExisting = device['useExistingThing']
 
-            devices.append({
-                "Id": thingName,
-                "ThingArn": thingArn,
-                "CertificateArn": thingCertArn,
-                "SyncShadow": thingSyncShadow
-            })
+            if thingUseExisting:
+                thingArn        = self.fetchThingArn(thingName)
+                thingCertArn    = self.fetchThingCertArn(thingName)
+
+                devices.append({
+                    "Id": thingName,
+                    "ThingArn": thingArn,
+                    "CertificateArn": thingCertArn,
+                    "SyncShadow": thingSyncShadow
+                })
 
         cfntmp.format(devices=json.dumps(devices))
 

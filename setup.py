@@ -19,7 +19,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'gg-manager=gg_manager.groupCommands:main'
+            'gg-manager=gg_manager:main'
         ],
     },
     zip_safe=False

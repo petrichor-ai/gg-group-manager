@@ -27,9 +27,10 @@ class CFNTemplate(object):
 
 
 
-CFN_TEMPLATE_BODY = \
+CFN_GROUP_TEMPLATE_BODY = \
 '''
 {
+    \"AWSTemplateFormatVersion\": \"2010-09-09\",
     \"Description\": \"AWS IoT Greengrass Group Stack\",
     \"Resources\": {
         \"CoreDefinition\": {
@@ -229,3 +230,100 @@ CFN_TEMPLATE_BODY = \
 }
 '''
 
+
+CFN_THING_TEMPLATE_BODY = \
+'''
+{
+	\"AWSTemplateFormatVersion\": \"2010-09-09\",
+	\"Resources\": {
+		\"deviceThing\": {
+			\"Type\": \"AWS::IoT::Thing\",
+			\"Properties\": {
+				\"ThingName\": \"${thingName}\",
+				\"AttributePayload\": {
+					\"Attributes\": {
+						\"myAttributeA\": {
+							\"Ref\": \"MyAttributeValueA\"
+						}
+					}
+				}
+			}
+		},
+		\"devicePolicy\": {
+			\"Type\": \"AWS::IoT::Policy\",
+			\"Properties\": {
+                \"PolicyDocument\": \"{
+                    \\\"Version\\\":\\\"2012-10-17\\\",
+                    \\\"Statement\\\": [
+                        {
+                            \\\"Effect\\\": \\\"Allow\\\",
+                            \\\"Action\\\": [
+                                \\\"iot:Connect\\\"
+                            ],
+                            \\\"Resource\\\": [
+                                \\\"arn:aws:iot:{region}:{accountId}:client/${iot:ClientId}\\\"
+                            ],
+                            \\\"Condition\\": {
+                                \\\"Bool\\\": {
+                                    \\\"iot:Connection.Thing.IsAttached\\\": [
+                                        \\\"true\\\"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            \\\"Effect\\\": \\\"Allow\\\",
+                            \\\"Action\\\": [
+                                \\\"iot:GetThingShadow\\\",
+                                \\\"iot:UpdateThingShadow\\\",
+                                \\\"iot:DeleteThingShadow\\\"
+                            ],
+                            \\\"Resource\\\": [
+                                \\\"*\\\"
+                            ]
+                        },
+                        {
+                            \\\"Effect\\\": \\\"Allow\\\",
+                            \\\"Action\\\": [
+                                \\\"iot:Publish\\\",
+                                \\\"iot:Subscribe\\\",
+                                \\\"iot:Receive\\\"
+                            ],
+                            \\\"Resource\\\": [
+                                \\\"*\\\"
+                            ]
+                        },
+                        {
+                            \\\"Effect\\\": \\\"Allow\\\",
+                            \\\"Action\\\": [
+                                \\\"greengrass:*\\\"
+                            ],
+                            \\\"Resource\\\": [
+                                \\\"*\\\"
+                            ]
+                        }
+                    ]
+                }\"
+			}
+		},
+		\"devicePolicyPrincipal\": {
+			\"Type\": \"AWS::IoT::PolicyPrincipalAttachment\",
+			\"Properties\": {
+				\"PolicyName\": {
+					\"Ref\": \"devicePolicyPrincipal\"
+				},
+				\"Principal\": \"${certificateArn}\"
+			}
+		},
+		\"deviceThingPrincipal\": {
+			\"Type\": \"AWS::IoT::ThingPrincipalAttachment\",
+			\"Properties\": {
+				\"ThingName\": {
+					\"Ref\": \"deviceThing\"
+				},
+				\"Principal\": \"${certificateArn}\"
+			}
+		}
+	}
+}
+'''

@@ -14,7 +14,7 @@ log.setLevel(logging.DEBUG)
 
 
 
-class GroupStack(object):
+class Stack(object):
 
 
     def __init__(self, s):

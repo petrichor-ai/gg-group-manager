@@ -1,4 +1,5 @@
 import boto3
+import json
 import logging
 
 from botocore.exceptions import ClientError
@@ -26,4 +27,8 @@ class ResourceDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Resource Definition.
         '''
-        cfntmp.format(resources=[])
+        resources = []
+
+        ## TODO
+
+        cfntmp.format(resources=json.dumps(resources))

@@ -2,8 +2,6 @@ import json
 
 from functools import wraps
 
-from .group_schema import groupSchema
-
 
 
 def handle_config_error(func):
@@ -26,7 +24,7 @@ def handle_config_error(func):
 
 
 
-class GroupConfig(dict):
+class Config(dict):
 
     def __init__(self):
         pass
@@ -52,15 +50,14 @@ class GroupConfig(dict):
 
 
     @handle_config_error
-    def load_from_json(self, payload):
+    def load_from_json(self, payload, schema):
 
-        conf = groupSchema(use=json.loads).validate(payload)
+        conf = schema.func.validate(payload)
         self.update(conf)
 
 
     @handle_config_error
-    def load_from_file(self, payload):
-
+    def load_from_file(self, payload, schema):
         with open(payload, 'r') as f:
-            conf = groupSchema(use=json.load).validate(f)
+            conf = schema.func.validate(f)
             self.update(conf)

@@ -1,3 +1,11 @@
+# artifacts
+*.key
+*.crt
+*.pem
+*.csr
+*.cert
+certificates/
+
 # Vim
 *.swp
 *.swo

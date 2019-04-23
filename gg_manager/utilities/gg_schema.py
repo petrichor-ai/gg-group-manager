@@ -1,10 +1,16 @@
 import json
+import schema
 
-from schema import Schema, And, Use, Optional, Regex
+
+class Schema(object):
+
+    def __init__(self, func, use):
+        self.func = func(use)
+
 
 
 def groupSchema(use=json.load):
-    return Schema(And(Use(use), {
+    return schema.Schema(schema.And(schema.Use(use), {
         'Group': {
             'Name': basestring
         },
@@ -18,11 +24,10 @@ def groupSchema(use=json.load):
         'Devices': [
             {
                 'thingName': basestring,
-                'SyncShadow': bool,
-                'useExistingThing': bool
+                'SyncShadow': bool
             }
         ],
-        'Functions': [
+        schema.Optional('Functions'): [
             {
                 "FunctionName": basestring,
                 "FunctionAlias": basestring,
@@ -34,7 +39,7 @@ def groupSchema(use=json.load):
                 "Environment": dict
             }
         ],
-        'Resources': [
+        schema.Optional('Resources'): [
             {
                 "Id": basestring,
                 "Name": basestring,
@@ -49,3 +54,15 @@ def groupSchema(use=json.load):
             }
         ]
     }))
+
+
+def thingSchema(use=json.load):
+    return schema.Schema(schema.And(schema.Use(use), {
+        'Devices': [
+            {
+                'thingName': basestring,
+                'Attributes': dict
+            }
+        ]
+    }))
+

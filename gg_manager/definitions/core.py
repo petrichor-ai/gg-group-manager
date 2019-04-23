@@ -27,20 +27,24 @@ class CoreDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation Greengrass Group Core Definition.
         '''
-        thingName       = config['Cores'][0]['thingName']
-        thingSyncShadow = config['Cores'][0]['SyncShadow']
-        thingArn        = self.fetchThingArn(thingName)
-        thingCertArn    = self.fetchThingCertArn(thingName)
+        cores = []
 
-        cores = \
-        [
-            {
-                "Id": thingName,
-                "ThingArn": thingArn,
-                "CertificateArn": thingCertArn,
-                "SyncShadow": thingSyncShadow
-            }
-        ]
+        thingName        = config['Cores'][0]['thingName']
+        thingSyncShadow  = config['Cores'][0]['SyncShadow']
+        thingUseExisting = config['Cores'][0]['useExistingThing']
+
+        if thingUseExisting:
+            thingArn        = self.fetchThingArn(thingName)
+            thingCertArn    = self.fetchThingCertArn(thingName)
+
+            cores.append(
+                {
+                    "Id": thingName,
+                    "ThingArn": thingArn,
+                    "CertificateArn": thingCertArn,
+                    "SyncShadow": thingSyncShadow
+                }
+            )
         cfntmp.format(cores=json.dumps(cores))
 
 
