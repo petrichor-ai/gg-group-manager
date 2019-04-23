@@ -234,21 +234,21 @@ CFN_GROUP_TEMPLATE_BODY = \
 CFN_THING_TEMPLATE_BODY = \
 '''
 {
-	\"AWSTemplateFormatVersion\": \"2010-09-09\",
-	\"Resources\": {
-		\"deviceThing\": {
-			\"Type\": \"AWS::IoT::Thing\",
-			\"Properties\": {
-				\"ThingName\": \"${thingName}\",
-				\"AttributePayload\": {
-					\"Attributes\": {
-						\"myAttributeA\": {
-							\"Ref\": \"MyAttributeValueA\"
-						}
-					}
-				}
-			}
-		},
+    \"AWSTemplateFormatVersion\": \"2010-09-09\",
+    \"Resources\": {
+        \"deviceThing\": {
+            \"Type\": \"AWS::IoT::Thing\",
+            \"Properties\": {
+                \"ThingName\": \"${thingName}\",
+                \"AttributePayload\": {
+                    \"Attributes\": {
+                        \"myAttributeA\": {
+                            \"Ref\": \"MyAttributeValueA\"
+                        }
+                    }
+                }
+            }
+        },
 		\"devicePolicy\": {
 			\"Type\": \"AWS::IoT::Policy\",
 			\"Properties\": {

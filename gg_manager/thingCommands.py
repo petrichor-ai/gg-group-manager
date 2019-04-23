@@ -31,6 +31,7 @@ class ThingCommands(object):
 
         self._stack  = Stack(s)
         self._config = Config()
+        self._cfntmp = CFNTemplate(CFN_THING_TEMPLATE_BODY)
 
 
     def create(self, configJson='', configFile=''):
