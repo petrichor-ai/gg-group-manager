@@ -1,0 +1,23 @@
+{
+    "Group":   {
+        "Name": "GT03x03Group"
+    },
+    "Cores": [{
+        "thingName": "GT03x03Core",
+        "SyncShadow": true
+    }],
+    "Devices": [
+        {
+            "thingName": "GT03x03Device-Switch-01",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT03x03Device-Switch-02",
+            "SyncShadow": true
+        },
+        {
+            "thingName": "GT03x03Device-Switch-03",
+            "SyncShadow": true
+        }
+    ]
+}

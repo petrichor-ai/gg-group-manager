@@ -45,7 +45,7 @@ class Config(dict):
 
 
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).iteritems():
+        for k, v in dict(*args, **kwargs).items():
             self[k] = v
 
 

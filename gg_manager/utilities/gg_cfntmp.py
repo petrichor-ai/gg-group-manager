@@ -262,15 +262,8 @@ CFN_THING_TEMPLATE_BODY = \
                                 \\\"iot:Connect\\\"
                             ],
                             \\\"Resource\\\": [
-                                \\\"arn:aws:iot:${region}:${accountId}:client/${thingName}\\\"
-                            ],
-                            \\\"Condition\\": {
-                                \\\"Bool\\\": {
-                                    \\\"iot:Connection.Thing.IsAttached\\\": [
-                                        \\\"true\\\"
-                                    ]
-                                }
-                            }
+                                \\\"*\\\"
+                            ]
                         },
                         {
                             \\\"Effect\\\": \\\"Allow\\\",

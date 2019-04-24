@@ -1,0 +1,28 @@
+{
+    "Devices": [
+        {
+            "thingName": "GT03x03Core",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT03x03Device-Switch-01",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT03x03Device-Switch-02",
+            "Attributes": {
+
+            }
+        },
+        {
+            "thingName": "GT03x03Device-Switch-03",
+            "Attributes": {
+
+            }
+        }
+    ]
+}

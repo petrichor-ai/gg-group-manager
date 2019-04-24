@@ -12,26 +12,26 @@ class Schema(object):
 def groupSchema(use=json.load):
     return schema.Schema(schema.And(schema.Use(use), {
         'Group': {
-            'Name': basestring
+            'Name': str
         },
         'Cores': [
             {
-                'thingName': basestring,
+                'thingName': str,
                 'SyncShadow': bool
             }
         ],
         'Devices': [
             {
-                'thingName': basestring,
+                'thingName': str,
                 'SyncShadow': bool
             }
         ],
         schema.Optional('Functions'): [
             {
-                "FunctionName": basestring,
-                "FunctionAlias": basestring,
-                "EncodingType": basestring,
-                "Executable": basestring,
+                "FunctionName": str,
+                "FunctionAlias": str,
+                "EncodingType": str,
+                "Executable": str,
                 "MemorySize": int,
                 "Pinned": bool,
                 "Timeout": int,
@@ -40,14 +40,14 @@ def groupSchema(use=json.load):
         ],
         schema.Optional('Resources'): [
             {
-                "Id": basestring,
-                "Name": basestring,
+                "Id": str,
+                "Name": str,
                 "ResourceDataContainer": {
                     "LocalDeviceResourceData": {
                         "GroupOwnerSetting": {
                             "AutoAddGroupOwner": bool
                         },
-                        "SourcePath": basestring
+                        "SourcePath": str
                     }
                 }
             }
@@ -59,9 +59,17 @@ def thingSchema(use=json.load):
     return schema.Schema(schema.And(schema.Use(use), {
         'Devices': [
             {
-                'thingName': basestring,
+                'thingName': str,
                 'Attributes': dict
             }
         ]
+    }))
+
+
+def coresSchema(use=json.load):
+    return schema.Schema(schema.And(schema.Use(use), {
+        'remote_user': str,
+        'sources': str,
+        schema.Optional('extra_vars'): dict
     }))
 

@@ -4,19 +4,19 @@ import logging
 
 from botocore.exceptions import ClientError
 
-from definitions.connector    import ConnectorDefinition
-from definitions.core         import CoreDefinition
-from definitions.device       import DeviceDefinition
-from definitions.function     import FunctionDefinition
-from definitions.group        import GroupDefinition
-from definitions.logger       import LoggerDefinition
-from definitions.resource     import ResourceDefinition
-from definitions.subscription import SubscriptionDefinition
+from gg_manager.definitions.connector    import ConnectorDefinition
+from gg_manager.definitions.core         import CoreDefinition
+from gg_manager.definitions.device       import DeviceDefinition
+from gg_manager.definitions.function     import FunctionDefinition
+from gg_manager.definitions.group        import GroupDefinition
+from gg_manager.definitions.logger       import LoggerDefinition
+from gg_manager.definitions.resource     import ResourceDefinition
+from gg_manager.definitions.subscription import SubscriptionDefinition
 
-from utilities.gg_stacks import Stack
-from utilities.gg_config import Config
-from utilities.gg_schema import Schema, groupSchema
-from utilities.gg_cfntmp import CFNTemplate, CFN_GROUP_TEMPLATE_BODY
+from gg_manager.utilities.gg_stacks import Stack
+from gg_manager.utilities.gg_config import Config
+from gg_manager.utilities.gg_schema import Schema, groupSchema
+from gg_manager.utilities.gg_cfntmp import CFNTemplate, CFN_GROUP_TEMPLATE_BODY
 
 
 logging.basicConfig(
@@ -130,7 +130,7 @@ class GroupCommands(object):
             self._config.load_from_file(configFile, schema)
 
         output  = self._stack.output(self._config)
-        group   = self._grupDef.fetchGroup(output['GroupId'])
+        group   = self._grupDef.fetchGroup(output['groupId'])
         groupId = group['Id']
         self._grupDef.resetDefinition(groupId)
 

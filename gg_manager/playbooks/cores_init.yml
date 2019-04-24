@@ -1,0 +1,27 @@
+---
+
+- name: Configure AWS Greengrass Cores
+  hosts: all
+  tasks:
+    - name: Test Playbook
+      debug:
+        msg: "Cores_Conf.yml Playbook"
+
+    - name: Stop Greengrass Core
+      become: yes
+      become_user: root
+      become_method: sudo
+      systemd:
+        name: greengrass
+        state: stopped
+
+
+    - name: Start Greengrass Core
+      become: yes
+      become_user: root
+      become_method: sudo
+      systemd:
+        name: greengrass
+        state: started
+
+

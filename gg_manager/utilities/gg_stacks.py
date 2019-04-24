@@ -86,10 +86,6 @@ class Stack(object):
         response = self._cfn.describe_stacks(
             StackName=stackName
         )
-        outputs = response['Stacks'][0]['Outputs']
-        outputs = {out['OutputKey']: out['OutputValue'] for out in outputs}
+        outputs = response['Stacks'][0].get('Outputs', [])
+        return {out['OutputKey']: out['OutputValue'] for out in outputs}
 
-        response = self._gg.get_group(
-            GroupId=outputs['groupId']
-        )
-        return response

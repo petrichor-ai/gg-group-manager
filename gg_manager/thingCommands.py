@@ -4,12 +4,12 @@ import logging
 
 from botocore.exceptions import ClientError
 
-from definitions.thing import ThingDefinition
+from gg_manager.definitions.thing import ThingDefinition
 
-from utilities.gg_stacks import Stack
-from utilities.gg_config import Config
-from utilities.gg_schema import Schema, thingSchema
-from utilities.gg_cfntmp import CFNTemplate, CFN_THING_TEMPLATE_BODY
+from gg_manager.utilities.gg_stacks import Stack
+from gg_manager.utilities.gg_config import Config
+from gg_manager.utilities.gg_schema import Schema, thingSchema
+from gg_manager.utilities.gg_cfntmp import CFNTemplate, CFN_THING_TEMPLATE_BODY
 
 
 logging.basicConfig(
