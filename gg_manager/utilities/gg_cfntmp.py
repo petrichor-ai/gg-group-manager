@@ -284,8 +284,8 @@ CFN_THING_TEMPLATE_BODY = \
                                 \\\"iot:Receive\\\"
                             ],
                             \\\"Resource\\\": [
-                                \\\"arn:aws:iot:${region}:${accountId}:topic/$aws/things/${thingName}/shadow/#\\\",
-                                \\\"arn:aws:iot:${region}:${accountId}:topicfilter/$aws/things/${thingName}/shadow/#\\\"
+                                \\\"arn:aws:iot:${region}:${accountId}:topic/$aws/things/${thingName}*\\\",
+                                \\\"arn:aws:iot:${region}:${accountId}:topicfilter/$aws/things/${thingName}*\\\"
                             ]
                         },
                         {
