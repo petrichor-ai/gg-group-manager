@@ -2,12 +2,18 @@
 
 - name: Configure AWS Greengrass Cores
   hosts: all
-  tasks:
-    - name: Test Playbook
-      debug:
-        msg: "Cores_Conf.yml Playbook"
+  vars:
+    thingArn: "{{ thingArn }}"
+    iotHost: "{{ iotHost }}"
+    ggHost: "{{ ggHost }}"
+    certsPath: "{{ certsPath }}"
+    caName: "{{ caName }}"
+    certName: "{{ certName }}"
+    keyName: "{{ keyName }}"
 
-    - name: Stop Greengrass Core
+  tasks:
+
+    - name: Stop Greengrass Core service
       become: yes
       become_user: root
       become_method: sudo
@@ -16,7 +22,64 @@
         state: stopped
 
 
-    - name: Start Greengrass Core
+    - name: Copy Greengrass Core certificates
+      become: yes
+      become_user: root
+      become_method: sudo
+      copy:
+        src: "{{ certsPath }}{{ item }}"
+        dest: /greengrass/certs/
+      with_items:
+        - "{{ caName }}"
+        - "{{ certName }}"
+        - "{{ keyName }}"
+
+
+    - name: Remove Greengrass Core config
+      become: yes
+      become_user: root
+      become_method: sudo
+      file:
+        path: /greengrass/config/config.json
+        state: absent
+
+
+    - name: Format Greengrass Core config
+      set_fact:
+        core_config:
+          coreThing:
+            caPath: "{{ caName }}"
+            certPath: "{{ certName }}"
+            keyPath: "{{ keyName }}"
+            thingArn: "{{ thingArn }}"
+            iotHost: "{{ iotHost }}"
+            ggHost: "{{ ggHost }}"
+          runtime:
+            cgroup:
+              useSystemd: "yes"
+          managedRespawn: false,
+          crypto:
+            caPath: "file://certs/{{ caName }}"
+            principals:
+              IoTCertificate:
+                privateKeyPath: "file://certs/{{ keyName }}"
+                certificatePath: "file://certs/{{ certName }}"
+              SecretsManager:
+                privateKeyPath: "file://certs/{{ keyName }}"
+
+
+    - name: Create Greengrass Core config
+      become: yes
+      become_user: root
+      become_method: sudo
+      blockinfile:
+        path: /greengrass/config/config.json
+        create: yes
+        marker: ""
+        block: "{{ core_config | to_nice_json(indent=4) }}"
+
+
+    - name: Start Greengrass Core service
       become: yes
       become_user: root
       become_method: sudo

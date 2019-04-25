@@ -9,6 +9,7 @@
       greengrass-core/downloads/1.8.1/
       greengrass-linux-armv7l-1.8.1.tar.gz
 
+
     python_packages:
       - awscli
       - botocore
@@ -16,6 +17,21 @@
       - AWSIoTPythonSDK
 
   tasks:
+    - name: Install Apt Dependencies
+      become: yes
+      become_user: root
+      become_method: sudo
+      apt:
+        name:
+          - python
+          - python-pip
+          - python-setuptools
+          - python3
+          - python3-pip
+          - python3-setuptools
+        state: latest
+        update_cache: True
+
 
     - name: Install Python Dependencies
       become: yes
@@ -26,7 +42,7 @@
         state: present
 
 
-    - name: Update Soft/Hard Link protection
+    - name: Update Soft/Hard Link protection and Diable IPv6
       become: yes
       become_user: root
       become_method: sudo
@@ -35,16 +51,6 @@
         block: |
           fs.protected_hardlinks = 1
           fs.protected_symlinks = 1
-          net.ipv6.conf.all.disable_ipv6 = 1
-
-
-    - name: Disable all IPv6
-      become: yes
-      become_user: root
-      become_method: sudo
-      blockinfile:
-        dest: /etc/sysctl.d/98-rpi.conf
-        block: |
           net.ipv6.conf.all.disable_ipv6 = 1
 
 
@@ -139,11 +145,10 @@
           WantedBy=multi-user.target
 
 
-    - name: Start and Enable Service
+    - name: Enable Systemd Service
       become: yes
       become_user: root
       become_method: sudo
       systemd:
         name: greengrass
-        state: started
         enabled: yes

@@ -73,7 +73,7 @@ class CoresCommands(object):
 
         self._playbk.execute(
             remote_user=self._config['remote_user'],
-            sources=self._config['sources'],
+            sources=self._config['hosts'],
             playbook=playbook,
             extra_vars=self._config.get('extra_vars', {})
         )
