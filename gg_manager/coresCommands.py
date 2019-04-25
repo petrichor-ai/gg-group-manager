@@ -5,7 +5,6 @@ import os
 
 from botocore.exceptions import ClientError
 
-
 from gg_manager.utilities.gg_ansible import Playbook
 from gg_manager.utilities.gg_config  import Config
 from gg_manager.utilities.gg_schema  import Schema, coresSchema
@@ -78,4 +77,3 @@ class CoresCommands(object):
             playbook=playbook,
             extra_vars=self._config.get('extra_vars', {})
         )
-
