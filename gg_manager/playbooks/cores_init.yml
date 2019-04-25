@@ -26,7 +26,7 @@
         state: present
 
 
-    - name: Update Soft/Hard Link protection and Disable all IPv6
+    - name: Update Soft/Hard Link protection
       become: yes
       become_user: root
       become_method: sudo
@@ -36,9 +36,19 @@
           fs.protected_hardlinks = 1
           fs.protected_symlinks = 1
           net.ipv6.conf.all.disable_ipv6 = 1
+    
+
+    - name: Disable all IPv6
+      become: yes
+      become_user: root
+      become_method: sudo
+      blockinfile:
+        dest: /etc/sysctl.d/98-rpi.conf
+        block: |
+          net.ipv6.conf.all.disable_ipv6 = 1
 
 
-    - name: Check Debian Stretch CGroups
+    - name: Clear CGroup_Enable
       become: yes
       become_user: root
       become_method: sudo
@@ -48,7 +58,7 @@
         replace: ''
 
 
-    - name: Check Debian Stretch CGroups
+    - name: Clear CGroup_Memory
       become: yes
       become_user: root
       become_method: sudo
@@ -58,16 +68,25 @@
         replace: ''
 
 
-    - name: Enable Debian Stretch CGroups
+    - name: Enable CGroup_Enable
       become: yes
       become_user: root
       become_method: sudo
-      shell: sed -i 's/$/ cgroup_enable=memory cgroup_memory=1/' /boot/cmdline.txt
+      shell: sed -i 's/$/ cgroup_enable=memory/' /boot/cmdline.txt
+      args:
+        warn: false
+
+    
+    - name: Enable CGroup_Memory
+      become: yes
+      become_user: root
+      become_method: sudo
+      shell: sed -i 's/$/ cgroup_memory=1/' /boot/cmdline.txt
       args:
         warn: false
 
 
-    - name: Download and Unpack Greengrass Software
+    - name: Download and Unpack Core Software
       become: yes
       become_user: root
       become_method: sudo
@@ -77,7 +96,7 @@
         remote_src: yes
 
 
-    - name: Create Greengrass Core User
+    - name: Create GGC_User
       become: yes
       become_user: root
       become_method: sudo
@@ -87,7 +106,7 @@
         system: yes
 
 
-    - name: Create Greengrass Core Group
+    - name: Create GGC_Group
       become: yes
       become_user: root
       become_method: sudo
@@ -97,7 +116,7 @@
         system: yes
 
 
-    - name: Create Systemd Service for Greengrass
+    - name: Create Systemd Service
       become: yes
       become_user: root
       become_method: sudo
@@ -107,6 +126,7 @@
         block: |
           [Unit]
           Description=Greengrass Daemon
+
           [Service]
           Type=forking
           PIDFile=/var/run/greengrassd.pid
@@ -114,11 +134,12 @@
           ExecStart=/greengrass/ggc/core/greengrassd start
           ExecReload=/greengrass/ggc/core/greengrassd restart
           ExecStop=/greengrass/ggc/core/greengrassd stop
+
           [Install]
           WantedBy=multi-user.target
 
 
-    - name: Start and Enable Greengrass Core
+    - name: Start and Enable Service
       become: yes
       become_user: root
       become_method: sudo
