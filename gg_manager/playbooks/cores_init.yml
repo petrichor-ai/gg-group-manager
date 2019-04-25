@@ -36,7 +36,7 @@
           fs.protected_hardlinks = 1
           fs.protected_symlinks = 1
           net.ipv6.conf.all.disable_ipv6 = 1
-    
+
 
     - name: Disable all IPv6
       become: yes
@@ -76,7 +76,7 @@
       args:
         warn: false
 
-    
+
     - name: Enable CGroup_Memory
       become: yes
       become_user: root

@@ -69,7 +69,7 @@ def thingSchema(use=json.load):
 def coresSchema(use=json.load):
     return schema.Schema(schema.And(schema.Use(use), {
         'remote_user': str,
-        'sources': str,
+        'hosts': str,
         schema.Optional('extra_vars'): dict
     }))
 
