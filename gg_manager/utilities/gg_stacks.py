@@ -24,7 +24,7 @@ class Stack(object):
 
 
     def create(self, config, cfntmp):
-        ''' Create a Cloudformation Greengrass Group Stack.
+        ''' Create a Cloudformation Greengrass Resource Stack.
         '''
         if config.get('Group', None):
             groupName = config['Group']['Name']
@@ -41,7 +41,7 @@ class Stack(object):
 
 
     def update(self, config, cfntmp):
-        ''' Update a Cloudformation Greengrass Group Stack.
+        ''' Update a Cloudformation Greengrass Resource Stack.
         '''
         if config.get('Group', None):
             groupName = config['Group']['Name']
@@ -58,7 +58,7 @@ class Stack(object):
 
 
     def delete(self, config, cfntmp):
-        ''' Delete a Cloudformation Greengrass Group Stack.
+        ''' Delete a Cloudformation Greengrass Resource Stack.
         '''
 
         if config.get('Group', None):
@@ -74,7 +74,7 @@ class Stack(object):
 
 
     def output(self, config):
-        ''' Retreive a Cloudformation Greengrass Group Stack Output.
+        ''' Retreive a Cloudformation Greengrass Resource Stack Output.
         '''
         if config.get('Group', None):
             groupName = config['Group']['Name']

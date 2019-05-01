@@ -52,7 +52,7 @@ Unzip Raspbian package,
 $ unzip *-raspbian-stretch-lite.zip
 ```
 
-Find MicroSD,,
+Find MicroSD,
 ```bash
 $ sudo diskutil list
 ```
@@ -91,3 +91,7 @@ network={
     key_mgmt=WPA-PSK
 }
 ```
+
+
+sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
+

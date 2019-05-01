@@ -73,3 +73,17 @@ def coresSchema(use=json.load):
         schema.Optional('extra_vars'): dict
     }))
 
+
+def funcsSchema(use=json.load):
+    return schema.Schema(schema.And(schema.Use(use), {
+        'Functions': [
+            {
+                'PackageDir': str,
+                'BucketName': str,
+                'BucketKey': str,
+                'Handler': str,
+                'Runtime': str,
+                'Alias': str
+            }
+        ]
+    }))
