@@ -327,35 +327,33 @@ CFN_THING_TEMPLATE_BODY = \
 CFN_FUNCS_TEMPLATE_BODY = \
 '''
 {
-    \"AWSTemplateFormatVersion\": \"2010-09-09\",
     \"Transform\": \"AWS::Serverless-2016-10-31\",
     \"Description\": \"AWS_IoT_Greengrass_Lambda_Stack\",
     \"Parameters\": {
-        FunctionAlias:
-            Default: prod
-            Type: String
     },
     \"Resources\": {
         \"LambdaRole\": {
             \"Type\": \"AWS::IAM::Role\",
-            \"AssumeRolePolicyDocument\": {
-                \"Version\": \"2012-10-17\",
-                \"Statement\": [{
-                    \"Effect\": \"Allow\",
-                    \"Principal\": {
-                        \"Service\": [
-                            \"lambda.amazonaws.com\"
+            \"Properties\": {
+                \"AssumeRolePolicyDocument\": {
+                    \"Version\": \"2012-10-17\",
+                    \"Statement\": [{
+                        \"Effect\": \"Allow\",
+                        \"Principal\": {
+                            \"Service\": [
+                                \"lambda.amazonaws.com\"
+                            ]
+                        },
+                        \"Action\": [
+                            \"sts:AssumeRole\"
                         ]
-                    },
-                    \"Action\": [
-                        \"sts:AssumeRole\"
-                    ]
-                }]
-            },
-            \"ManagedPolicyArns\": [
-                \"arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy\",
-                \"arn:aws:iam::aws:policy/AWSGreengrassFullAccess\"
-            ]
+                    }]
+                },
+                \"ManagedPolicyArns\": [
+                    \"arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy\",
+                    \"arn:aws:iam::aws:policy/AWSGreengrassFullAccess\"
+                ]
+            }
         },
         \"DeviceCoreFunction\": {
             \"Type\": \"AWS::Serverless::Function\",
@@ -370,5 +368,24 @@ CFN_FUNCS_TEMPLATE_BODY = \
             }
         }
     }
+    \"Outputs\": {
+        \"Arn\": {
+            \"Description\": \"Name of Greengrass Group\",
+            \"Value\": {
+                \"Ref\": \"DeviceCoreFunction\"
+            }
+        },
+        \"Version\": {
+            \"Description\": \"Name of Greengrass Group\",
+            \"Value\": {
+                \"Ref\": \"DeviceCoreFunction.Version\"
+            }
+        },
+        \"aliasArn\": {
+            \"Description\": \"Name of Greengrass Group\",
+            \"Value\": {
+                \"Ref\": \"DeviceCoreFunction.Alias\"
+            }
+        },
 }
 '''

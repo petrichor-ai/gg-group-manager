@@ -53,9 +53,7 @@ class Bucket(object):
             Bucket=bucketName,
             Key=bucketKey
         )
-        return 'https://s3-{}.amazonaws.com/{}/{}'.format(
-            self._region, bucketName, bucketKey
-        )
+        return 's3://{}/{}'.format(bucketName, bucketKey)
 
 
     def delete(self, config):

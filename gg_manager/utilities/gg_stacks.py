@@ -29,14 +29,22 @@ class Stack(object):
         if config.get('Group', None):
             groupName = config['Group']['Name']
             stackName = '{}-GG-Stack'.format(groupName)
-        else:
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('thingName', None):
             thingName = config['thingName']
             stackName = '{}-Thing-Stack'.format(thingName)
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('Alias', None):
+            funcsName = config['Alias']
+            stackName = '{}-Funcs-Stack'.format(funcsName)
+            stackCaps = ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
 
         response = self._cfn.create_stack(
             StackName=stackName,
             TemplateBody=cfntmp.json_dump(),
-            Capabilities=['CAPABILITY_IAM']
+            Capabilities=stackCaps
         )
 
 
@@ -46,14 +54,22 @@ class Stack(object):
         if config.get('Group', None):
             groupName = config['Group']['Name']
             stackName = '{}-GG-Stack'.format(groupName)
-        else:
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('thingName', None):
             thingName = config['thingName']
             stackName = '{}-Thing-Stack'.format(thingName)
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('Alias', None):
+            funcsName = config['Alias']
+            stackName = '{}-Funcs-Stack'.format(funcsName)
+            stackCaps = ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
 
         response = self._cfn.update_stack(
             StackName=stackName,
             TemplateBody=cfntmp.json_dump(),
-            Capabilities=['CAPABILITY_IAM']
+            Capabilities=stackCaps
         )
 
 
@@ -64,9 +80,17 @@ class Stack(object):
         if config.get('Group', None):
             groupName = config['Group']['Name']
             stackName = '{}-GG-Stack'.format(groupName)
-        else:
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('thingName', None):
             thingName = config['thingName']
             stackName = '{}-Thing-Stack'.format(thingName)
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('Alias', None):
+            funcsName = config['Alias']
+            stackName = '{}-Funcs-Stack'.format(funcsName)
+            stackCaps = ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
 
         response = self._cfn.delete_stack(
             StackName=stackName
@@ -79,9 +103,17 @@ class Stack(object):
         if config.get('Group', None):
             groupName = config['Group']['Name']
             stackName = '{}-GG-Stack'.format(groupName)
-        else:
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('thingName', None):
             thingName = config['thingName']
             stackName = '{}-Thing-Stack'.format(thingName)
+            stackCaps = ['CAPABILITY_IAM']
+
+        if config.get('Alias', None):
+            funcsName = config['Alias']
+            stackName = '{}-Funcs-Stack'.format(funcsName)
+            stackCaps = ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
 
         response = self._cfn.describe_stacks(
             StackName=stackName

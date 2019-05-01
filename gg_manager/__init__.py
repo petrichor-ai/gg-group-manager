@@ -7,6 +7,8 @@ from gg_manager.thingCommands import ThingCommands
 
 
 def main():
+    ''' Command-line cli entrypoint.
+    '''
     fire.Fire({
         'cores': CoresCommands,
         'funcs': FuncsCommands,
