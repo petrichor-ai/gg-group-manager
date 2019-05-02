@@ -29,4 +29,7 @@ class LoggerDefinition(object):
         '''
         loggers = []
 
+        for logger in config.get('Loggers', []):
+            loggers.append(logger)
+
         cfntmp.format(loggers=json.dumps(loggers))

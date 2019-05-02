@@ -31,23 +31,17 @@ class FunctionDefinition(object):
         functions = []
 
         for function in config.get('Functions', []):
-            functionName  = function['FunctionName']
-            functionAlias = function['FunctionAlias']
-            functionArn   = self.fetchFunctionArn(functionName, functionAlias)
-            functionConfiguration = \
-            {
-                "MemorySize":   function['MemorySize'],
-                "Pinned":       function['Pinned'],
-                "Timeout":      function['Timeout'],
-                "EncodingType": function['EncodingType'],
-                "Executable":   function['Executable'],
-                "Environment":  function['Environment']
-            }
+            functionName     = function['Id']
+            functionAlias    = function['Alias']
+            functionConfig   = function['Configuration']
+            functionAliasArn = self.fetchFunctionArn(
+                functionName, functionAlias
+            )
 
             functions.append({
                 "Id": functionName,
-                "FunctionArn": functionArn,
-                "FunctionConfiguration": functionConfiguration
+                "FunctionArn": functionAliasArn,
+                "FunctionConfiguration": functionConfig
             })
 
         cfntmp.format(functions=json.dumps(functions))

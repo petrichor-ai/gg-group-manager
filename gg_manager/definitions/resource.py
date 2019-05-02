@@ -29,6 +29,15 @@ class ResourceDefinition(object):
         '''
         resources = []
 
-        ## TODO
+        for resource in config.get('Resources', []):
+            resourceId        = resource['Id']
+            resourceName      = resource['Name']
+            resourceContainer = resource['Container']
+
+            resources.append({
+                "Id": resourceId,
+                "Name": resourceName,
+                "ResourceDataContainer": resourceContainer
+            })
 
         cfntmp.format(resources=json.dumps(resources))

@@ -26,30 +26,21 @@ def groupSchema(use=json.load):
                 'SyncShadow': bool
             }
         ],
-        schema.Optional('Functions'): [
-            {
-                "FunctionName": str,
-                "FunctionAlias": str,
-                "EncodingType": str,
-                "Executable": str,
-                "MemorySize": int,
-                "Pinned": bool,
-                "Timeout": int,
-                "Environment": dict
-            }
-        ],
+        schema.Optional('Functions'): list,
         schema.Optional('Resources'): [
             {
                 "Id": str,
                 "Name": str,
-                "ResourceDataContainer": {
-                    "LocalDeviceResourceData": {
-                        "GroupOwnerSetting": {
-                            "AutoAddGroupOwner": bool
-                        },
-                        "SourcePath": str
-                    }
-                }
+                "Container": dict
+            }
+        ],
+        schema.Optional('Loggers'): [
+            {
+                "Component": str,
+                "Id": str,
+                "Level": str,
+                schema.Optional("Space"): int,
+                "Type": str
             }
         ]
     }))
@@ -78,6 +69,8 @@ def funcsSchema(use=json.load):
     return schema.Schema(schema.And(schema.Use(use), {
         'Functions': [
             {
+                'Id': str,
+                'Version': str,
                 'PackageDir': str,
                 'BucketName': str,
                 'BucketKey': str,

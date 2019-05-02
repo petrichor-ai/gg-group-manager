@@ -96,7 +96,7 @@ class GroupCommands(object):
         self._subsDef.formatDefinition(self._config, self._cfntmp)
 
         output  = self._stack.output(self._config)
-        groupId = output['Id']
+        groupId = output['groupId']
         self._grupDef.resetDefinition(groupId)
 
         self._stack.update(self._config, self._cfntmp)
@@ -113,7 +113,7 @@ class GroupCommands(object):
             self._config.load_from_file(configFile, schema)
 
         output         = self._stack.output(self._config)
-        group          = self._grupDef.fetchGruup(output['groupId'])
+        group          = self._grupDef.fetchGroup(output['groupId'])
         groupId        = group['Id']
         groupVersionId = group['LatestVersion']
         self._grupDef.deployDefinition(groupId, groupVersionId)

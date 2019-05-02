@@ -36,6 +36,7 @@ class Bucket(object):
         ''' Update an S3 Object.
         '''
         packageDir = config['PackageDir']
+        versionNum = config['Version']
         bucketName = config['BucketName']
         bucketKey  = config['BucketKey']
 
@@ -47,6 +48,9 @@ class Bucket(object):
                     zfn   = absfn[len(packageDir)+len(os.sep):]
                     zip_file.write(filename=absfn, arcname=zfn)
 
+        bucketKey = '{}-v{}{}'.format(
+            bucketKey.split('.')[0], versionNum, bucketKey.split('.')[1]
+        )
         response = self._s3.put_object(
             ACL='private',
             Body=zip_buff.getvalue(),

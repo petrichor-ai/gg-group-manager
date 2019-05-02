@@ -92,4 +92,23 @@ class FuncsCommands(object):
         else:
             schema = Schema(funcsSchema, use=json.load)
             self._config.load_from_file(configFile, schema)
-        print('remove')
+
+        for func in self._config.get('Functions', []):
+            self._stack.delete(func, self._cfntmp)
+
+
+    def output(self, configJson='', configFile=''):
+        ''' Output an AWS IoT Function (Lambda).
+        '''
+        if configJson:
+            schema = Schema(funcsSchema, use=json.loads)
+            self._config.load_from_json(configJson, schema)
+        else:
+            schema = Schema(funcsSchema, use=json.load)
+            self._config.load_from_file(configFile, schema)
+
+        functions = []
+        for func in self._config.get('Functions', []):
+            outputs = self._stack.output(func)
+            functions.append(outputs)
+        return functions

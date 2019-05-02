@@ -26,14 +26,16 @@ class LambdaDefinition(object):
     def formatDefinition(self, config, cfntmp):
         ''' Format a Cloudformation SAM Lambda Definition.
         '''
+        name    = config['Id']
         codeUri = config['CodeUri']
         handler = config['Handler']
         runtime = config['Runtime']
         alias   = config['Alias']
 
         cfntmp.format(
-           codeUri=codeUri,
-           handler=handler,
-           runtime=runtime,
-           alias=alias
+            name=name,
+            codeUri=codeUri,
+            handler=handler,
+            runtime=runtime,
+            alias=alias
         )

@@ -358,6 +358,7 @@ CFN_FUNCS_TEMPLATE_BODY = \
         \"DeviceCoreFunction\": {
             \"Type\": \"AWS::Serverless::Function\",
             \"Properties\": {
+                \"FunctionName\": \"${name}\",
                 \"CodeUri\": \"${codeUri}\",
                 \"Handler\": \"${handler}\",
                 \"Runtime\": \"${runtime}\",
@@ -367,7 +368,7 @@ CFN_FUNCS_TEMPLATE_BODY = \
                 \"AutoPublishAlias\": \"${alias}\"
             }
         }
-    }
+    },
     \"Outputs\": {
         \"Arn\": {
             \"Description\": \"Name of Greengrass Group\",
@@ -386,6 +387,7 @@ CFN_FUNCS_TEMPLATE_BODY = \
             \"Value\": {
                 \"Ref\": \"DeviceCoreFunction.Alias\"
             }
-        },
+        }
+    }
 }
 '''
